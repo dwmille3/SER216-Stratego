@@ -6,4 +6,4 @@ eclemma -> code coverage
 junit -> unit testing  
 findbugs -> static analyzer  
 checkstyle -> formatting  
-
+Abbot Java GUI Test Framework -> Automated GUI testing
