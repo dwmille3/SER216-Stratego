@@ -1,6 +1,15 @@
+# Files
+*.classpath
+*.project
+*.diff
+*.DS_Store
 *.iml
 *.class
-*.idea/
+
+# Directories 
+.idea/
+.settings/
+bin/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
