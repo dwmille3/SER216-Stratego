@@ -32,8 +32,8 @@ public class ConnectionScene {
    
     private static String serverIP, nickname;
    
-    private final int WIDTH  = 300;
-    private final int HEIGHT = 150;
+    private static final int WIDTH  = 300;
+    private static final int HEIGHT = 150;
    
     Scene scene;
    

@@ -83,7 +83,7 @@ public class BoardSquareEventPane extends GridPane {
      * This event is fired when the cursor leaves the square. It changes the 
      * hover image back to its default image: a blank image with a 1% fill.
      */
-    private class OffHover implements EventHandler<MouseEvent> {
+    private static class OffHover implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent e) {
             ImageView hover = (ImageView) e.getSource();            

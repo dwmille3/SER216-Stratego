@@ -35,7 +35,7 @@ public class SetupPieces {
 	private static HashMap<PieceType, Label> pieceCount = 
 	        new HashMap<PieceType, Label>(12);
 	
-	private static PieceType selectedPieceType;
+	private static PieceType selectedPieceType = null;
 	private static ColorAdjust zeroPieces = new ColorAdjust();
 	private static boolean allPiecesPlaced;
 	
@@ -45,8 +45,7 @@ public class SetupPieces {
     public SetupPieces() {
         final double UNIT = ClientStage.getUnit();
         zeroPieces.setSaturation(-1.0);
-        selectedPieceType = null;
-        
+
         // Get the player color.
         String playerColor = Game.getPlayer().getColor().toString();
         
@@ -92,7 +91,7 @@ public class SetupPieces {
      * on. It updates the HashMap that keeps track of which piece type is 
      * selected and adds a glow to the selected piece type's image.
      */
-    private class SelectPiece implements EventHandler<MouseEvent> {
+    private static class SelectPiece implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent e) {
             ImageView pieceImage = (ImageView) e.getSource();

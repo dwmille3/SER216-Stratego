@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import edu.asu.stratego.game.board.ServerBoard;
@@ -75,7 +76,7 @@ public class ServerGameManager implements Runnable {
      * Establish IO object streams to facilitate communication between the 
      * client and server.
      */
-    public void createIOStreams() {
+    private void createIOStreams() {
         try {
             // NOTE: ObjectOutputStreams must be constructed before the 
             //       ObjectInputStreams so as to prevent a remote deadlock.
@@ -160,6 +161,7 @@ public class ServerGameManager implements Runnable {
             toPlayerOne.writeObject(winCondition);
             toPlayerTwo.writeObject(winCondition);
         }
+
         catch (ClassNotFoundException | IOException e) {
             // TODO Handle this exception somehow...
             e.printStackTrace();

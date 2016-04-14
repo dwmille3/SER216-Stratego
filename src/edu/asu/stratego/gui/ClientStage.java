@@ -15,19 +15,12 @@ public class ClientStage extends Stage {
     private ConnectionScene connection;
     private WaitingScene    waiting;
     private BoardScene      board;
-    
-    private static double UNIT;
-    private static int    SIDE;
-    
+
     /**
      * Creates a new instance of ClientStage.
      */
     public ClientStage() {
         // Calculate the BoardScene dimensions from screen resolution.
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        SIDE = (int) (0.85 * screenSize.getHeight()) / 12 * 12;
-        UNIT = SIDE / 12;
-        
         setConnectionScene();
         this.setTitle("ASU Stratego");
         this.setResizable(false);
@@ -73,13 +66,14 @@ public class ClientStage extends Stage {
      * @return the board scene side length (in pixels) divided by 12.
      */
     public static double getUnit() {
-        return UNIT;
+        return getSide() / 12.0;
     }
     
     /**
      * @return the side length of the board scene (in pixels)
      */
     public static int getSide() {
-        return SIDE;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return (int) (0.85 * screenSize.getHeight()) / 12 * 12;
     }
 }

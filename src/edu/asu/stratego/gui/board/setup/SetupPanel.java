@@ -152,7 +152,7 @@ public class SetupPanel {
         });
         
         readyButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            Platform.runLater(() -> { finishSetup(); } );
+            Platform.runLater(() -> finishSetup());
         });
         
         // Text properties.
@@ -227,7 +227,7 @@ public class SetupPanel {
      * the instructions from the panel and adds the ready button to the panel. 
      * If the ready button is 
      */
-    private class UpdateReadyButton implements Runnable {
+    private static class UpdateReadyButton implements Runnable {
         @Override
         public void run() {
             // instructionPane should update only when the state is changed.

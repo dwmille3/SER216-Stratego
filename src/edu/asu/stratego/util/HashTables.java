@@ -9,6 +9,7 @@ import edu.asu.stratego.media.SoundConstants;
 
 public class HashTables{
     // Piece Image Map (String -> Image).
+
     public final static HashMap<String, Image> PIECE_MAP = new HashMap<String, Image>(24);
     static {
         // RED Pieces.

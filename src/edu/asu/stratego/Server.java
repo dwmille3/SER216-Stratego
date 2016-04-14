@@ -42,7 +42,8 @@ public class Server {
         }
         
         finally {
-            listener.close();
+            if (listener != null)
+                listener.close();
         }
     }
 }

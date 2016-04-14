@@ -412,7 +412,7 @@ public class ClientGameManager implements Runnable {
     
     // Finicky, ill-advised to edit. Resets the opacity, rotation, and piece to null
     // Duplicate "ResetImageVisibility" class was intended to not set piece to null, untested though.
-    private class ResetSquareImage implements EventHandler<ActionEvent> {
+    private static class ResetSquareImage implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             synchronized (waitFade) {
@@ -427,7 +427,7 @@ public class ClientGameManager implements Runnable {
         }
     }
     // read above comments
-    private class ResetImageVisibility implements EventHandler<ActionEvent> {
+    private static class ResetImageVisibility implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             synchronized (waitVisible) {

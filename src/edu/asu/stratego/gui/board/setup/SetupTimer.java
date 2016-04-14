@@ -74,7 +74,7 @@ public class SetupTimer {
     /**
      * Executes when the timer finishes counting down to zero.
      */
-    private class TimerFinished implements EventHandler<ActionEvent> {
+    private static class TimerFinished implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             BoardSquareEventPane.randomSetup();

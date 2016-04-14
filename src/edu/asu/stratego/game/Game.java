@@ -10,36 +10,28 @@ import edu.asu.stratego.game.board.ClientBoard;
  * @see edu.asu.stratego.game.ClientGameManager
  */
 public class Game {
-    private static Player player;
-    private static Player opponent;
+    private static volatile Player player = null;
+    private static volatile Player opponent = null;
     
-    private static Move move;
-    private static MoveStatus moveStatus;
+    private static volatile Move move = null;
+    private static volatile MoveStatus moveStatus = null;
     
-    private static GameStatus status;
-    private static PieceColor turn;
-    private static ClientBoard board;
+    private static volatile GameStatus status = null;
+    private static volatile PieceColor turn = null;
+    private static volatile ClientBoard board = null;
     
     /**
      * Initializes data fields for a new game.
      */
     public Game() {
-        player   = new Player();
-        opponent = new Player();
-        
-        move = new Move();
-        moveStatus = MoveStatus.OPP_TURN;
-        
-        status = GameStatus.SETTING_UP;
-        turn   = PieceColor.RED;
-        
-        board = new ClientBoard();
     }
 
     /**
      * @return Player object containing information about the player.
      */
     public static Player getPlayer() {
+        if (Game.player == null)
+            player = new Player();
         return player;
     }
 
@@ -54,6 +46,8 @@ public class Game {
      * @return Player object containing information about the opponent.
      */
     public static Player getOpponent() {
+        if (opponent == null)
+            opponent = new Player();
         return opponent;
     }
 
@@ -68,6 +62,8 @@ public class Game {
      * @return value the status of the game.
      */
     public static GameStatus getStatus() {
+        if (status == null)
+            status = GameStatus.SETTING_UP;
         return status;
     }
 
@@ -82,6 +78,8 @@ public class Game {
      * @return value the color of the current player's turn
      */
     public static PieceColor getTurn() {
+        if (turn == null)
+            turn = PieceColor.RED;
         return turn;
     }
 
@@ -96,6 +94,8 @@ public class Game {
      * @return the game board.
      */
     public static ClientBoard getBoard() {
+        if (board == null)
+            board = new ClientBoard();
         return board;
     }
 
@@ -107,6 +107,8 @@ public class Game {
     }
 
 	public static Move getMove() {
+        if (move == null)
+            move = new Move();
 		return move;
 	}
 
@@ -115,6 +117,8 @@ public class Game {
 	}
 
 	public static MoveStatus getMoveStatus() {
+        if (moveStatus == null)
+            moveStatus = MoveStatus.OPP_TURN;
 		return moveStatus;
 	}
 

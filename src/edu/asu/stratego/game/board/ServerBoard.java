@@ -5,7 +5,7 @@ package edu.asu.stratego.game.board;
  */
 public class ServerBoard {
 
-    private final int SIZE = 10;
+    private static int SIZE = 10;
     private ServerSquare[][] squares;
     
     /**

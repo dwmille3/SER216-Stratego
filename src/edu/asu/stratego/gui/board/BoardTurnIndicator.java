@@ -26,14 +26,11 @@ public class BoardTurnIndicator {
      * Creates a new instance of BoardTurnIndicator.
      */
     public BoardTurnIndicator() {
-        final int SIDE = ClientStage.getSide();
-        turnIndicator = new Rectangle(0, 0, SIDE, SIDE);
-        
         // Set the setup game turn color.
         if (Game.getPlayer().getColor() == PieceColor.RED)
-            turnIndicator.setFill(red);
+            getTurnIndicator().setFill(red);
         else
-            turnIndicator.setFill(blue);
+            getTurnIndicator().setFill(blue);
         
         // Start thread to automatically update turn color.
         Thread updateColor = new Thread(new UpdateColor());
@@ -45,6 +42,8 @@ public class BoardTurnIndicator {
      * @return the turn indicator (JavaFX rectangle)
      */
     public static Rectangle getTurnIndicator() {
+        if (turnIndicator == null)
+            turnIndicator = new Rectangle(0, 0, ClientStage.getSide(), ClientStage.getSide());
         return turnIndicator;
     }
     
@@ -56,14 +55,14 @@ public class BoardTurnIndicator {
         return turnIndicatorTrigger;
     }
     
-    private class UpdateColor implements Runnable {
+    private static class UpdateColor implements Runnable {
         @Override
         public void run() {
-            synchronized (turnIndicatorTrigger) {
+            synchronized (getTurnIndicator()) {
                 try {
                     while (true) {
                         // Wait for player turn color to change.
-                        turnIndicatorTrigger.wait();
+                        getTurnIndicator().wait();
                         
                         Platform.runLater(() -> {
                             // Blue -> Red.

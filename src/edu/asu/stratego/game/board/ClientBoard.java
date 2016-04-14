@@ -11,7 +11,7 @@ public class ClientBoard {
 
     private final BoardPane piecePane;
     private final BoardEventPane eventPane;
-    private final int size = 10;
+    private static final int size = 10;
     private ClientSquare[][] squares;
     
     /**

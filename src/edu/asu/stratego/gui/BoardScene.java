@@ -19,14 +19,17 @@ import edu.asu.stratego.media.PlaySound;
  */
 public class BoardScene {
     
-    private final double UNIT = ClientStage.getUnit();
-    private final int    SIDE = ClientStage.getSide();
+    private static final double UNIT = ClientStage.getUnit();
+    private static final int    SIDE = ClientStage.getSide();
     
-    private static StackPane root       = new StackPane();
-    private static GridPane  setupPanel = new GridPane();
+    private static StackPane root       = null;
+    private static GridPane  setupPanel = null;
     
+    private static ImageView border     = null;
+    private static Rectangle background = null;
+
     Scene scene;
-    
+
     /**
      * Creates a new instance of BoardScene.
      */
@@ -61,12 +64,7 @@ public class BoardScene {
          * that the scene background color can come through 
          * to indicate which player's turn it is.
          */
-        
-        // Set the background color (turn indicator).
-        BoardTurnIndicator indicator = new BoardTurnIndicator();
-        Rectangle background = BoardTurnIndicator.getTurnIndicator();
-        
-        
+
         // TODO Sound test here
         //PlaySound.playMusic("cornfield", 1);
         
@@ -80,35 +78,51 @@ public class BoardScene {
                 Game.getBoard().getSquare(row, col).getEventPane().getHover().setFitWidth(UNIT);
             }
         }
-        
+
+        // Set the background color (turn indicator).
+        new BoardTurnIndicator();
+
+
         // Create the setup panel.
         new SetupPanel();
-        setupPanel = SetupPanel.getSetupPanel();
-        StackPane.setMargin(setupPanel, new Insets(UNIT, 0, 0, 0));
-        StackPane.setAlignment(setupPanel, Pos.TOP_CENTER);
-        
-        // Create the border.
-        ImageView border = new ImageView(ImageConstants.BORDER);
+        StackPane.setMargin(getSetupPanel(), new Insets(UNIT, 0, 0, 0));
+        StackPane.setAlignment(getSetupPanel(), Pos.TOP_CENTER);
+
+        // Show Board GUI.
+        Game.getBoard().getPiecePane().setAlignment(Pos.CENTER);
+        Game.getBoard().getEventPane().setAlignment(Pos.CENTER);
+
+        StackPane rootPane = getRootPane();
+        rootPane.setMaxSize(SIDE, SIDE);
+
+        scene = new Scene(rootPane, SIDE, SIDE);
+    }
+
+    private static ImageView getBorder() {
+        if (border == null)
+            border = new ImageView(ImageConstants.BORDER);
         StackPane.setAlignment(border, Pos.CENTER);
         border.setFitHeight(SIDE);
         border.setFitWidth(SIDE);
-        
-        // Show Board GUI.
-        root = new StackPane(background, Game.getBoard().getPiecePane(), 
-                             Game.getBoard().getEventPane(), setupPanel, border);
-        root.setMaxSize(SIDE, SIDE);
-        Game.getBoard().getPiecePane().setAlignment(Pos.CENTER);
-        Game.getBoard().getEventPane().setAlignment(Pos.CENTER);
-        
-        
-        scene = new Scene(root, SIDE, SIDE);
+        return border;
+    }
+
+    private static Rectangle getBackground() {
+        if (background == null)
+            background = BoardTurnIndicator.getTurnIndicator();
+        return background;
     }
     
     public static StackPane getRootPane() {
+        if (root == null)
+            root = new StackPane(getBackground(), Game.getBoard().getPiecePane(),
+                                 Game.getBoard().getEventPane(), getSetupPanel(), getBorder());
         return root;
     }
     
     public static GridPane getSetupPanel() {
+        if (setupPanel == null)
+            setupPanel = SetupPanel.getSetupPanel();
         return setupPanel;
     }
 }

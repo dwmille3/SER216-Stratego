@@ -21,7 +21,7 @@ public class ClientGameManagerTest {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-        }).run();
+        }).start();
     }
 
     private boolean startPseudoServer() throws Exception {
