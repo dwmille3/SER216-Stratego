@@ -74,7 +74,7 @@ public class ClientGameManager implements Runnable {
      */
     private void connectToServer() {
         try {
-            ConnectionScene.ConnectToServer connectToServer = 
+            ConnectionScene.ConnectToServer connectToServer =
                     new ConnectionScene.ConnectToServer();
             Thread serverConnect = new Thread(connectToServer);
             serverConnect.setDaemon(true);
@@ -99,7 +99,7 @@ public class ClientGameManager implements Runnable {
      * </p>
      */
     private void waitForOpponent() {
-        Platform.runLater(() -> { stage.setWaitingScene(); });
+        Platform.runLater(() -> stage.setWaitingScene());
         
         try {
             // I/O Streams.
@@ -128,7 +128,7 @@ public class ClientGameManager implements Runnable {
      * positions are sent to the server.
      */
     private void setupBoard() {
-        Platform.runLater(() -> { stage.setBoardScene(); });
+        Platform.runLater(() -> stage.setBoardScene());
         
         synchronized (setupPieces) {
             try {
@@ -164,7 +164,7 @@ public class ClientGameManager implements Runnable {
             }
         }
     }
-    
+
     private void playGame() {
     	// Remove setup panel
         Platform.runLater(() -> {
@@ -396,7 +396,7 @@ public class ClientGameManager implements Runnable {
     public static Object getReceiveMove() {
         return receiveMove;
     }
-    
+
     private void revealAll() {
     	// End game, reveal all pieces
     	Platform.runLater(() -> {

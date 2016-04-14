@@ -34,7 +34,9 @@ public class ServerGameManager implements Runnable {
     
     private Socket socketOne;
     private Socket socketTwo;
-    
+
+    public ServerBoard getBoard() {return board;}
+
     /**
      * Creates a new instance of ServerGameManager.
      * 
@@ -66,7 +68,6 @@ public class ServerGameManager implements Runnable {
         createIOStreams();
         exchangePlayers();
         exchangeSetup();
-        
         playGame();
     }
 
@@ -74,7 +75,7 @@ public class ServerGameManager implements Runnable {
      * Establish IO object streams to facilitate communication between the 
      * client and server.
      */
-    private void createIOStreams() {
+    public void createIOStreams() {
         try {
             // NOTE: ObjectOutputStreams must be constructed before the 
             //       ObjectInputStreams so as to prevent a remote deadlock.
@@ -117,7 +118,7 @@ public class ServerGameManager implements Runnable {
             e.printStackTrace();
         }
     }
-    
+
     private void exchangeSetup() {
         try {
             SetupBoard setupBoardOne = (SetupBoard) fromPlayerOne.readObject();
@@ -166,7 +167,7 @@ public class ServerGameManager implements Runnable {
         
     }
     
-    private void playGame() {       
+    private void playGame() {
         while (true) {
             try {
                 // Send player turn color to clients.
@@ -302,8 +303,8 @@ public class ServerGameManager implements Runnable {
             }
         }
     }
-    
-    private GameStatus checkWinCondition() {
+
+	public GameStatus checkWinCondition() {
     	if(!hasAvailableMoves(PieceColor.RED))
     		return GameStatus.RED_NO_MOVES;
     		
@@ -318,8 +319,8 @@ public class ServerGameManager implements Runnable {
     	
     	return GameStatus.IN_PROGRESS;
     }
-    
-    private boolean isCaptured(PieceColor inColor) {
+
+    public boolean isCaptured(PieceColor inColor) {
     	if(playerOne.getColor() == inColor) {
     		if(board.getSquare(playerOneFlag.x, playerOneFlag.y).getPiece().getPieceType() != PieceType.FLAG) 
     			return true;
@@ -330,8 +331,8 @@ public class ServerGameManager implements Runnable {
     	}
     	return false;
     }
-    
-    private boolean hasAvailableMoves(PieceColor inColor) {
+
+    public boolean hasAvailableMoves(PieceColor inColor) {
     	for(int row = 0; row < 10; ++row) {
     		for(int col = 0; col < 10; ++col) {
     			if(board.getSquare(row, col).getPiece() != null && board.getSquare(row, col).getPiece().getPieceColor() == inColor) {
@@ -344,8 +345,8 @@ public class ServerGameManager implements Runnable {
     	
     	return false;
     }
-    
-    private ArrayList<Point> computeValidMoves(int row, int col, PieceColor inColor) {
+
+    public ArrayList<Point> computeValidMoves(int row, int col, PieceColor inColor) {
     	int max = 1;
     	PieceType pieceType = board.getSquare(row, col).getPiece().getPieceType();
     	if(pieceType == PieceType.SCOUT)
@@ -418,16 +419,16 @@ public class ServerGameManager implements Runnable {
     	
     	return validMoves;
     }
-    
-    private static boolean isLake(int row, int col) {
+
+    public static boolean isLake(int row, int col) {
     	if (col == 2 || col == 3 || col == 6 || col == 7) {
             if (row == 4 || row == 5)
                 return true;
         }
     	return false;
     }
-    
-    private static boolean isInBounds(int row, int col) {
+
+    public static boolean isInBounds(int row, int col) {
     	if(row < 0 || row > 9)
     		return false;
     	if(col < 0 || col > 9)
@@ -435,10 +436,12 @@ public class ServerGameManager implements Runnable {
     	
     	return true;
     }
-    private boolean isOpponentPiece(int row, int col, PieceColor inColor) {
+
+    public boolean isOpponentPiece(int row, int col, PieceColor inColor) {
     	return board.getSquare(row, col).getPiece().getPieceColor() != inColor;
     }
-    private boolean isNullPiece(int row, int col) {
+
+	private boolean isNullPiece(int row, int col) {
     	return board.getSquare(row, col).getPiece() == null;
     }
 }
