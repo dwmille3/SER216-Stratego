@@ -3,23 +3,23 @@ package edu.asu.stratego.game;
 import edu.asu.stratego.game.board.ClientBoard;
 
 /**
- * Contains information about the Stratego game, which is shared between the 
+ * Contains information about the Stratego game, which is shared between the
  * JavaFX GUI and the ClientGameManager.
- * 
+ *
  * @see edu.asu.stratego.gui.ClientStage
  * @see edu.asu.stratego.game.ClientGameManager
  */
 public class Game {
     private static volatile Player player = null;
     private static volatile Player opponent = null;
-    
+
     private static volatile Move move = null;
     private static volatile MoveStatus moveStatus = null;
-    
+
     private static volatile GameStatus status = null;
     private static volatile PieceColor turn = null;
     private static volatile ClientBoard board = null;
-    
+
     /**
      * Initializes data fields for a new game.
      */
@@ -106,23 +106,23 @@ public class Game {
         Game.board = board;
     }
 
-	public static Move getMove() {
+    public static Move getMove() {
         if (move == null)
             move = new Move();
-		return move;
-	}
+        return move;
+    }
 
-	public static void setMove(Move move) {
-		Game.move = move;
-	}
+    public static void setMove(Move move) {
+        Game.move = move;
+    }
 
-	public static MoveStatus getMoveStatus() {
+    public static MoveStatus getMoveStatus() {
         if (moveStatus == null)
             moveStatus = MoveStatus.OPP_TURN;
-		return moveStatus;
-	}
+        return moveStatus;
+    }
 
-	public static void setMoveStatus(MoveStatus moveStatus) {
-		Game.moveStatus = moveStatus;
-	}
+    public static void setMoveStatus(MoveStatus moveStatus) {
+        Game.moveStatus = moveStatus;
+    }
 }

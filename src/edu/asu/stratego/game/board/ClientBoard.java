@@ -9,11 +9,11 @@ import edu.asu.stratego.gui.board.BoardSquareType;
  */
 public class ClientBoard {
 
+    private static final int size = 10;
     private final BoardPane piecePane;
     private final BoardEventPane eventPane;
-    private static final int size = 10;
     private ClientSquare[][] squares;
-    
+
     /**
      * Creates a new instance of Board.
      */
@@ -28,15 +28,15 @@ public class ClientBoard {
                     squares[row][col] = new ClientSquare(BoardSquareType.LIGHT);
             }
         }
-        
+
         // Initialize board layers.
         piecePane = new BoardPane(this);
         eventPane = new BoardEventPane(this);
     }
-    
+
     /**
      * Returns the board square located at (row, col).
-     * 
+     *
      * @param row board square row
      * @param col board square column
      * @return the square located at (row, col)
@@ -44,14 +44,14 @@ public class ClientBoard {
     public ClientSquare getSquare(int row, int col) {
         return squares[row][col];
     }
-    
+
     /**
      * @return the BoardPane.
      */
     public BoardPane getPiecePane() {
         return piecePane;
     }
-    
+
     /**
      * @return the BoardEventPane.
      */

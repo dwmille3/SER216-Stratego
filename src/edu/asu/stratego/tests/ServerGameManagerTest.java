@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ServerGameManagerTest {
 
@@ -22,8 +22,7 @@ public class ServerGameManagerTest {
     private void clearBoard() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (serverGameManager.getBoard() != null
-                        && serverGameManager.getBoard().getSquare(i, j) != null) {
+                if (serverGameManager.getBoard() != null && serverGameManager.getBoard().getSquare(i, j) != null) {
                     serverGameManager.getBoard().getSquare(i, j).setPiece(null);
                 }
             }
@@ -32,31 +31,27 @@ public class ServerGameManagerTest {
 
     private void addMockPieces() {
         // set up fake blue as all scout pieces
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++)
                 serverGameManager.getBoard()
                                  .getSquare(i, j)
-                                 .setPiece(new Piece(PieceType.SCOUT,
-                                                     PieceColor.BLUE,
-                                                     true));
+                                 .setPiece(new Piece(PieceType.SCOUT, PieceColor.BLUE, true));
 
         // set up fake red as all scout pieces
-        for(int i = 9; i > 5; i--)
+        for (int i = 9; i > 5; i--)
             for (int j = 9; j > 5; j--)
                 serverGameManager.getBoard()
                                  .getSquare(i, j)
-                                 .setPiece(new Piece(PieceType.SCOUT,
-                                                     PieceColor.RED,
-                                                     false));
+                                 .setPiece(new Piece(PieceType.SCOUT, PieceColor.RED, false));
     }
 
     private void removeColor(PieceColor color) {
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 ServerSquare square = serverGameManager.getBoard().getSquare(i, j);
-                if (square.getPiece() != null
-                        && square.getPiece().getPieceColor() != null
-                        && square.getPiece().getPieceColor().equals(color))
+                if (square.getPiece() != null && square.getPiece().getPieceColor() != null && square.getPiece()
+                                                                                                    .getPieceColor()
+                                                                                                    .equals(color))
                     square.setPiece(null);
             }
         }
@@ -110,7 +105,7 @@ public class ServerGameManagerTest {
         ArrayList<Point> points = serverGameManager.computeValidMoves(3, 3, PieceColor.BLUE);
 
         // assure all possible moves for the SCOUT piece
-        for(int x = 3, y = 4; y < 10; y++) {
+        for (int x = 3, y = 4; y < 10; y++) {
             Point p = points.get(y - 4);
             assertEquals(p.getX(), x, 0);
             assertEquals(p.getY(), y, 0);
@@ -134,8 +129,8 @@ public class ServerGameManagerTest {
 
     @Test
     public void testIsInBounds() {
-        for(int i = 0; i < 10; i++)
-            for(int j = 0; j < 10; j++)
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
                 assertEquals(ServerGameManager.isInBounds(i, j), true);
         assertEquals(ServerGameManager.isInBounds(10, 10), false);
         assertEquals(ServerGameManager.isInBounds(-1, -1), false);

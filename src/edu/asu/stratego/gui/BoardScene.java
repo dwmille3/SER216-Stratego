@@ -1,5 +1,9 @@
 package edu.asu.stratego.gui;
 
+import edu.asu.stratego.game.Game;
+import edu.asu.stratego.gui.board.BoardTurnIndicator;
+import edu.asu.stratego.gui.board.setup.SetupPanel;
+import edu.asu.stratego.media.ImageConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,25 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import edu.asu.stratego.game.Game;
-import edu.asu.stratego.gui.board.BoardTurnIndicator;
-import edu.asu.stratego.gui.board.setup.SetupPanel;
-import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.media.PlaySound;
 
 /**
- * Wrapper class for a JavaFX scene. Contains a scene UI and its associated 
+ * Wrapper class for a JavaFX scene. Contains a scene UI and its associated
  * event handlers for playing a game of Stratego.
  */
 public class BoardScene {
-    
+
     private static final double UNIT = ClientStage.getUnit();
-    private static final int    SIDE = ClientStage.getSide();
-    
-    private static StackPane root       = null;
-    private static GridPane  setupPanel = null;
-    
-    private static ImageView border     = null;
+    private static final int SIDE = ClientStage.getSide();
+
+    private static StackPane root = null;
+    private static GridPane setupPanel = null;
+
+    private static ImageView border = null;
     private static Rectangle background = null;
 
     Scene scene;
@@ -67,7 +66,7 @@ public class BoardScene {
 
         // TODO Sound test here
         //PlaySound.playMusic("cornfield", 1);
-        
+
         // Resize the board.
         final int size = 10;
         for (int row = 0; row < size; ++row) {
@@ -112,14 +111,14 @@ public class BoardScene {
             background = BoardTurnIndicator.getTurnIndicator();
         return background;
     }
-    
+
     public static StackPane getRootPane() {
         if (root == null)
-            root = new StackPane(getBackground(), Game.getBoard().getPiecePane(),
-                                 Game.getBoard().getEventPane(), getSetupPanel(), getBorder());
+            root = new StackPane(getBackground(), Game.getBoard().getPiecePane(), Game.getBoard().getEventPane(),
+                                 getSetupPanel(), getBorder());
         return root;
     }
-    
+
     public static GridPane getSetupPanel() {
         if (setupPanel == null)
             setupPanel = SetupPanel.getSetupPanel();

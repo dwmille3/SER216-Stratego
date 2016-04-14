@@ -13,16 +13,17 @@ public class ClientSquare {
     private Piece piece = null;
     private BoardSquarePane piecePane;
     private BoardSquareEventPane eventPane;
-    
+
     /**
      * Creates a new instance of Square.
+     *
      * @param type the square background image
      */
     public ClientSquare(BoardSquareType type) {
         piecePane = new BoardSquarePane(type);
         eventPane = new BoardSquareEventPane();
     }
-    
+
     /**
      * @return the BoardSquarePane associated with this Square
      */

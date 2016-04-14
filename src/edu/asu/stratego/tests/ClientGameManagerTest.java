@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ClientGameManagerTest {
 

@@ -5,9 +5,9 @@ package edu.asu.stratego.game;
  */
 
 public enum MoveStatus {
-	OPP_TURN,
-	NONE_SELECTED,
-	START_SELECTED,
-	END_SELECTED,
-	SERVER_VALIDATION;
+    OPP_TURN,
+    NONE_SELECTED,
+    START_SELECTED,
+    END_SELECTED,
+    SERVER_VALIDATION;
 }
