@@ -33,8 +33,5 @@ public class PopUpMessage {
 	    		+ "other piece. When you capture the flag of your opponent you win the game.\n\n"
 	    		+ "The Stratego board consists of 10 x 10 squares. Within the board there "
 	    		+ "are two obstacles of 2 x 2 squares each. Pieces are not allowed to move there.");
-
-
 	  }
-
 }
