@@ -14,6 +14,8 @@ public class ImageConstants {
             ImageConstants.class.getResource("images/board/ready_idle.png").toString());
     public final static Image BORDER = new Image(
             ImageConstants.class.getResource("images/board/border.png").toString());
+    public final static Image RANDOM = new Image(
+            ImageConstants.class.getResource("images/board/random.png").toString());
 
     public final static Image HIGHLIGHT_NONE = new Image(
             ImageConstants.class.getResource("images/board/highlight_none.png").toString());

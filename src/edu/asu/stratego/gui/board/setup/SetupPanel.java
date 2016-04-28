@@ -3,17 +3,17 @@ package edu.asu.stratego.gui.board.setup;
 import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.gui.board.BoardSquareEventPane;
 import edu.asu.stratego.media.ImageConstants;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -30,9 +30,11 @@ public class SetupPanel {
     private static GridPane piecePane = new GridPane();
     private static Object updateReadyStatus = new Object();
     private static StackPane instructionPane = new StackPane();
-    private static Label instructions = new Label();
+    private static StackPane randomPane = new StackPane();
+    private static Label instructions = new Label(); // Label();
     private static Label readyLabel = new Label();
     private static ImageView readyButton = new ImageView();
+    private static ImageView randomButton = new ImageView();
 
     /**
      * Creates a new instance of SetupPanel.
@@ -40,7 +42,7 @@ public class SetupPanel {
     public SetupPanel() {
         final double UNIT = ClientStage.getUnit();
 
-        setupPanel.setMaxHeight(UNIT * 4);
+        setupPanel.setMaxHeight(UNIT * 5);
         setupPanel.setMaxWidth(UNIT * 10);
 
         // Panel background.
@@ -131,12 +133,13 @@ public class SetupPanel {
          *                                                                               *
          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-        GridPane.setMargin(instructionPane, new Insets(UNIT * 0.15, 0.0, 0.0, 0.0));
+        GridPane.setMargin(instructionPane, new Insets(UNIT * 0.15, 0.0, 2.0, 0.0));
+        GridPane.setMargin(randomPane, new Insets(UNIT * 0.15, 0.0, 0.0, 0.0));
 
         // Add instructions.
         instructions.setText(
-                "place a piece: select a piece above and click on the board\n" + "   remove a piece: click on an " +
-                        "existing piece on the board");
+                "place a piece: select a piece above and click on the board\n\t" +
+                "remove a piece: click on an existing piece on the board");
 
         // Ready button + event handlers.
         readyButton.setImage(ImageConstants.READY_IDLE);
@@ -155,6 +158,15 @@ public class SetupPanel {
             Platform.runLater(() -> finishSetup());
         });
 
+        // Random button + event handlers
+        randomButton.setImage(ImageConstants.RANDOM);
+        randomButton.setFitHeight(UNIT * 0.75);
+        randomButton.setFitWidth(UNIT * 2.25);
+
+        randomButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            Platform.runLater(BoardSquareEventPane::randomSetup);
+        });
+
         // Text properties.
         instructions.setFont(Font.font("Century Gothic", UNIT * 0.3));
         instructions.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
@@ -165,12 +177,15 @@ public class SetupPanel {
         updateButton.setDaemon(true);
         updateButton.start();
 
+        randomPane.getChildren().add(randomButton);
+        randomPane.setAlignment(Pos.BOTTOM_RIGHT);
+
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
 
         setupPanel.add(instructionPane, 0, 2);
-        
-        
+        setupPanel.add(randomPane, 0, 3);
+
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
          *                                                                               *
          *                        C R E A T E   U I :   R E A D Y                        *
@@ -235,6 +250,7 @@ public class SetupPanel {
             synchronized (updateReadyStatus) {
                 while (true) {
                     try {
+
                         // Wait for piece type to increment / decrement.
                         updateReadyStatus.wait();
 
@@ -243,6 +259,7 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(instructions);
                                 instructionPane.getChildren().add(readyButton);
+                                randomPane.getChildren().remove(randomButton);
                             });
 
                             readyState = true;
