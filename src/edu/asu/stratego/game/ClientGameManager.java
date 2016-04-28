@@ -259,8 +259,8 @@ public class ClientGameManager implements Runnable {
                                 }
                             });
 
-                            // Wait 1 second after moving the scout in front of the piece it's going to attack
-                            Thread.sleep(1000);
+                            // Wait 0.2 seconds after moving the scout in front of the piece it's going to attack
+                            Thread.sleep(200);
 
                             int shiftX = 0;
                             int shiftY = 0;
@@ -314,8 +314,8 @@ public class ClientGameManager implements Runnable {
                         }
                     });
 
-                    // Wait three seconds (the image is shown to client, then waits 2 seconds)
-                    Thread.sleep(2000);
+                    // Wait one seconds (the image is shown to client, then waits 2 seconds)
+                    Thread.sleep(1000);
 
                     // Fade out pieces that lose (or draw)
                     Platform.runLater(() -> {
@@ -350,8 +350,8 @@ public class ClientGameManager implements Runnable {
                         }
                     });
 
-                    // Wait 1.5 seconds while the image fades out
-                    Thread.sleep(1500);
+                    // Wait 0.5 seconds while the image fades out
+                    Thread.sleep(500);
                 }
 
                 // Set the piece on the software (non-GUI) board to the updated pieces (either null or the winning
