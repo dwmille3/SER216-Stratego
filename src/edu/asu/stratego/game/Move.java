@@ -27,18 +27,6 @@ public class Move implements Serializable {
         isAttack = bool;
     }
 
-    public boolean isPieceSelected() {
-        return (start.x != -1 && start.y != -1);
-    }
-
-    public int getRowStart() {
-        return start.x;
-    }
-
-    public int getColStart() {
-        return start.y;
-    }
-
     public Point getStart() {
         return start;
     }
