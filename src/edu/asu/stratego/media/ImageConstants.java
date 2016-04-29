@@ -8,7 +8,7 @@ public class ImageConstants {
             ImageConstants.class.getResource("images/board/stratego_logo.png").toString());
 
     // Board Images.
-        public final static Image EXIT = new Image(
+    public final static Image EXIT = new Image(
     		ImageConstants.class.getResource("images/board/exit.png").toString());
     public final static Image READY_HOVER = new Image(
             ImageConstants.class.getResource("images/board/ready_hover.png").toString());
