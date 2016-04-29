@@ -23,14 +23,39 @@ import java.io.IOException;
 public class ConnectionScene {
 
     private static final Object playerLogin = new Object();
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 150;
+    private static final int WIDTH = 1150;
+    private static final int HEIGHT = 300;
     static Label statusLabel = new Label();
     private static String serverIP, nickname;
     Scene scene;
     private Button submitFields = new Button("Enter Battlefield");
     private TextField nicknameField = new TextField();
     private TextField serverIPField = new TextField();
+    private Label instructions = new Label("Stratego Instructions\n\n"
+	    		+ "Stratego is a game in which you need to "
+	    		+ "capture the flag of your opponent while defending your own flag. \n"
+	    		+ "To capture the flag you use your army of 40 pieces. "
+	    		+ "Pieces have a rank and represent individual officers \nand "
+	    		+ "soldiers in an army. In addition to those ranked pieces you "
+	    		+ "can use bombs to protect your flag.\n\n" 
+	    		+ "Pieces move 1 square per turn, horizontally or vertically. "
+	    		+ "Only the scout can move over multiple empty squares per turn.\n "
+	    		+ "Pieces cannot jump over another piece. "
+	    		+ "If a piece is moved onto a square occupied by an opposing piece,\n "
+	    		+ "their identities are revealed. The weaker piece is removed from the board, "
+	    		+ "and the stronger piece is moved into the place formerly\n "
+	    		+ "occupied by the weaker piece. If the engaging pieces are "
+	    		+ "of equal rank, they are both removed. Pieces may not move\n "
+	    		+ "onto a square already occupied by another piece without "
+	    		+ "attacking. Exception to the rule of the higher rank winning is the spy.\n"
+	    		+ "When the spy attacks the marshal, the spy defeats the higher ranked marshal. "
+	    		+ "However, when the marshal attacks the spy, the spy loses.\n "
+	    		+ "Bombs lose when they are defused by a miner.\n\n"
+	    		+ "The bombs and the flag cannot be moved. A bomb defeats every piece "
+	    		+ "that tries to attack it, except the miner. The flag loses from every\n "
+	    		+ "other piece. When you capture the flag of your opponent you win the game.\n\n"
+	    		+ "The Stratego board consists of 10 x 10 squares. Within the board there "
+	    		+ "are two obstacles of 2 x 2 squares each. Pieces are not allowed to move there.");
 
     /**
      * Creates a new instance of ConnectionScene.
@@ -43,6 +68,7 @@ public class ConnectionScene {
         gridPane.add(nicknameField, 1, 0);
         gridPane.add(serverIPField, 1, 1);
         gridPane.add(submitFields, 1, 3);
+        gridPane.add(instructions, 0, 3);
 
         BorderPane borderPane = new BorderPane();
         BorderPane.setMargin(statusLabel, new Insets(0, 0, 10, 0));
@@ -58,6 +84,7 @@ public class ConnectionScene {
 
         // Event Handler.
         submitFields.setOnAction(e -> Platform.runLater(new ProcessFields()));
+        
 
         scene = new Scene(borderPane, WIDTH, HEIGHT);
     }
