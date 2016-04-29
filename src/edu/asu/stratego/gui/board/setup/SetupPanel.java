@@ -31,10 +31,12 @@ public class SetupPanel {
     private static Object updateReadyStatus = new Object();
     private static StackPane instructionPane = new StackPane();
     private static StackPane randomPane = new StackPane();
+    private static StackPane randomPane = new StackPane();
     private static Label instructions = new Label(); // Label();
     private static Label readyLabel = new Label();
     private static ImageView readyButton = new ImageView();
     private static ImageView randomButton = new ImageView();
+    private static ImageView exitButton = new ImageView();
 
     /**
      * Creates a new instance of SetupPanel.
@@ -135,6 +137,7 @@ public class SetupPanel {
 
         GridPane.setMargin(instructionPane, new Insets(UNIT * 0.15, 0.0, 2.0, 0.0));
         GridPane.setMargin(randomPane, new Insets(UNIT * 0.15, 0.0, 0.0, 0.0));
+        GridPane.setMargin(exitPane, new Insets(UNIT * 0.0, 0.0, 0.0, 0.0));
 
         // Add instructions.
         instructions.setText(
@@ -167,6 +170,14 @@ public class SetupPanel {
             Platform.runLater(BoardSquareEventPane::randomSetup);
         });
 
+        exitButton.setImage(ImageConstants.EXIT);
+        exitButton.setFitHeight(UNIT);
+        exitButton.setFitWidth(UNIT);
+        
+        exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+        	Platform.runLater(() -> System.exit(0));
+        });
+        
         // Text properties.
         instructions.setFont(Font.font("Century Gothic", UNIT * 0.3));
         instructions.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
@@ -179,12 +190,16 @@ public class SetupPanel {
 
         randomPane.getChildren().add(randomButton);
         randomPane.setAlignment(Pos.BOTTOM_RIGHT);
+        
+        exitPane.getChildren().add(exitButton);
+        exitPane.setAlignment(Pos.BASELINE_RIGHT);
 
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
 
         setupPanel.add(instructionPane, 0, 2);
         setupPanel.add(randomPane, 0, 3);
+        setupPanel.add(exitPane, 0, 1);
 
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
          *                                                                               *
@@ -260,6 +275,7 @@ public class SetupPanel {
                                 instructionPane.getChildren().remove(instructions);
                                 instructionPane.getChildren().add(readyButton);
                                 randomPane.getChildren().remove(randomButton);
+                                exitPane.getChildren().add(exitButton);
                             });
 
                             readyState = true;
